@@ -1,0 +1,6 @@
+﻿base58
+requests
+trotter
+rich
+mnemonic
+hdwallet==2.2.1
