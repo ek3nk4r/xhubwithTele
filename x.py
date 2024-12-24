@@ -102,9 +102,9 @@ def check_xpub(account_extended_public_key):
 
             return confirmed_balance / 10**8, unconfirmed_balance / 10**8, received / 10**8, external
         else:
-            self.recoveryFinished.emit(f'Error getting xpub information: {response.status_code}')
+            print(f'Error getting xpub information: {response.status_code}')
     except requests.exceptions.RequestException as e:
-        self.recoveryFinished.emit(f'Error sending request for xpub information: {str(e)}')
+        print(f'Error sending request for xpub information: {str(e)}')
 
     # Return 0 if there's any error or if the response is not 200
     return 0, 0, 0, 0
@@ -304,49 +304,10 @@ def mnemonic_main(words):
 
 if __name__ == '__main__':
 
-    f4c0n = '''
-    .########.##........##........######....#####...##....##
-    .##.......##....##..##.......##....##..##...##..###...##
-    .##.......##....##..##.......##.......##.....##.####..##
-    .######...##....##..##.......##.......##.....##.##.##.##
-    .##.......#########.##.......##.......##.....##.##..####
-    .##.............##..##.......##....##..##...##..##...###
-    .##.............##..########..######....#####...##....##
-'''
-    print(water(f4c0n), end="")
-    mizogg= f'''
-                      ___            ___
-                     (o o)          (o o)
-                    (  V  ) MIZOGG (  V  )
-                    --m-m------------m-m--
-                  © mizogg.co.uk 2018 - 2023
-                   Xpubscan.py CryptoHunter
-
-                 VIP PROJECT Mizogg - F4lc0n
-                 
-    {red(f"[>] Running with Python {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}")}
-
-
-'''
-    print(water(mizogg), end="")
-
-    choice = input(purple("Do you want to write your mnemonic (y) or generate one randomly? (Any key): ") + "\033[38;2;148;0;230m")
-
-    if choice.lower() == "y":
-        mnemonic_input = input("Please enter your mnemonic: ")
-        words = mnemonic_input.strip()
-        language = Mnemonic.detect_language(words)
-        mnemonic = Mnemonic(language) if language else Mnemonic("english")
-        mnemonic_main(words)
-
-        if not mnemonic.check(words):
-            print(red("Invalid mnemonic. please try again."), end="")
-            exit(1)
-    else:
-        Lang = input(purple('Choose language 1.english, 2.french, 3.italian, 4.spanish, 5.chinese_simplified, 6.chinese_traditional, 7.japanese or 8.korean (leave empty for random): ')+ "\033[38;2;148;0;230m")
+        Lang = "1"
         random_language = Lang.strip() == ""
 
-        R = input(purple('Enter Amount of Mnemonic Words 12/15/18/21/24 to search Random (leave empty for random): ')+ "\033[38;2;148;0;230m")
+        R = "12"
         random_selection = R.strip() == ""
 
         while True:
